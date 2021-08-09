@@ -10,10 +10,7 @@ class Lead(models.Model):
     @api.depends('demo_ids')
     def total_demos_calc(self):
         for demo in self:
-            total = 0.0
-            for line in demo.demo_ids:
-                total += 1
-            demo.demo_count = total
+            demo.demo_count = len(demo.demo_ids)
 
     def action_list_view_navigation(self):
         """ This function gets triggered by clicking the button in the button box

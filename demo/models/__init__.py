@@ -2,3 +2,4 @@
 
 from . import demo
 from . import lead
+from . import book

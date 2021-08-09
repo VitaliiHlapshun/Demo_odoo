@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="after">
+                <button name="%(demo.action_demo_second)d" string="New Demo"
+                        type="action" class="oe_highlight"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_schedule_meeting']" position="before">
+                <button name="action_list_view_navigation" type="object"
+                        class="oe_stat_button" icon="fa-anchor">
+                    <div class="o_stat_info">
+                        <field name="demo_count" class="o_stat_value"/>
+                        <span class="o_stat_text" attrs="{'invisible': [('demo_count', '&lt;', 2)]}">
+                            Demos</span>
+                        <span class="o_stat_text" attrs="{'invisible': [('demo_count', '&gt;', 1)]}">
+                            Demo</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page name="lead" string="Demo count">
+                    <tree editable="bottom">
+                        <field name="demo_ids"/>
+                    </tree>
+                    <span>Total demo amount: <field name="demo_count" sum="1"/></span>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="demo_demo_new_demo" model="ir.actions.act_window">
+        <field name="name">New Demo</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">demo.demo</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="demo_demo_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

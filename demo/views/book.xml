@@ -7,7 +7,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="My Library" id="library_base_menu" />
+    <menuitem name="My Libraries" id="library_base_menu" />
     <menuitem name="Books" id="library_book_menu" parent="library_base_menu" action="library_book_action"/>
 
     <!-- Form View -->
@@ -19,16 +19,25 @@
                 <header>
                     <button name="make_available" string="Make Available" type="object"/>
                     <button name="make_borrowed"  string="Make Borrowed" type="object"/>
-                    <button name="make_lost"  string="Make Lost" type="object"/>
+                    <button name="grouped_data"  string="Make Lost" type="object"/>
+<!--                    <button name="filter_books" string="Make Lost" type="object"/>-->
+                    <button name="log_all_library_members"  string="Log Members" type="object"/>
+                    <button name="create_categories" string="Create Categories" type="object"/>
+                    <button name="change_release_date" string="Update Date" type="object"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
                     <group>
                         <field name="name"/>
                         <field name="author_ids" widget="many2many_tags"/>
+                        <field name="old_edition"/>
+                        <field name="category_id"/>
+                        <field name="cost_price"/>
                     </group>
                     <group>
                         <field name="date_release"/>
+                        <field name="isbn"/>
+                        <field name="pages"/>
                     </group>
                 </group>
             </form>
@@ -55,6 +64,7 @@
             <search>
                 <field name="name"/>
                 <field name="author_ids"/>
+                <field name="isbn"/>
                 <filter string="Without Authors" name="without_author" domain="[('author_ids','=',False)]"/>
             </search>
         </field>

@@ -98,6 +98,10 @@ class LibraryBook(models.Model):
     def make_available(self):
         self.change_state('available')
 
+    def ref_check(self):
+        '''returns recordset of view-ids'''
+        ref = self.env.ref("demo.library_book_view_tree").id
+        print(ref)
 
     def make_borrowed(self):
         self.change_state('borrowed')

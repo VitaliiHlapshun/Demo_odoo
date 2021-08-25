@@ -19,10 +19,9 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/lead.xml',
+
+        'views/book.xml',
         'views/book.xml',
         'views/book_category.xml',
-        'data/sequence.xml',
     ],
 }

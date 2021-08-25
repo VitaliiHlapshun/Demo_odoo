@@ -7,7 +7,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Book categories" id="library_base_menu"/>
+    <menuitem name="Book categories" id="library_base_menu_category"/>
     <menuitem name="Categories" id="library_category_menu" parent="library_base_menu" action="library_category_action"/>
 
     <!-- Form View -->

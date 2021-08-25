@@ -20,7 +20,7 @@
                     <button name="make_available" string="Make Available" type="object"/>
                     <button name="make_borrowed"  string="Make Borrowed" type="object"/>
                     <button name="grouped_data"  string="Make Lost" type="object"/>
-<!--                    <button name="filter_books" string="Make Lost" type="object"/>-->
+                    <button name="ref_check" string="Ref Check" type="object"/>
                     <button name="log_all_library_members"  string="Log Members" type="object"/>
                     <button name="create_categories" string="Create Categories" type="object"/>
                     <button name="change_release_date" string="Update Date" type="object"/>

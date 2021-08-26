@@ -13,6 +13,7 @@ class LibraryBook(models.Model):
     date_release = fields.Date('Release Date')
     isbn = fields.Char('ISBN')
     pages = fields.Integer('Number of Pages')
+    short_name = fields.Char('Short Title', translate=True, index=True)
     cost_price = fields.Float('Book Cost')
     author_ids = fields.Many2many('res.partner', string='Authors')
     old_edition = fields.Many2one('library.book', string='Old Edition')
@@ -23,6 +24,18 @@ class LibraryBook(models.Model):
         ('borrowed', 'Borrowed'),
         ('lost', 'Lost')],
         'State', default="draft")
+    publisher_id = fields.Many2one('res.partner', string='Publisher',
+                                   # optional:
+                                   ondelete='set null',
+                                   context={},
+                                   domain=[],
+                                   )
+
+    @api.model
+    def _update_book_price(self):
+        all_books = self.search([])
+        for book in all_books:
+            book.cost_price += 10
 
     @api.model
     def is_allowed_transition(self, old_state, new_state):

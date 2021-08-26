@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 import logging
 
 logger = logging.getLogger(__name__)
@@ -10,6 +11,7 @@ class LibraryBook(models.Model):
     _description = 'Library Book'
 
     name = fields.Char('Title', required=True)
+    active = fields.Boolean()
     date_release = fields.Date('Release Date')
     isbn = fields.Char('ISBN')
     pages = fields.Integer('Number of Pages')
@@ -18,12 +20,11 @@ class LibraryBook(models.Model):
     author_ids = fields.Many2many('res.partner', string='Authors')
     old_edition = fields.Many2one('library.book', string='Old Edition')
     category_id = fields.Many2one('library.book.category')
-    state = fields.Selection([
-        ('draft', 'Unavailable'),
-        ('available', 'Available'),
-        ('borrowed', 'Borrowed'),
-        ('lost', 'Lost')],
-        'State', default="draft")
+    state = fields.Selection(
+        [('available', 'Available'),
+         ('borrowed', 'Borrowed'),
+         ('lost', 'Lost')],
+        'State', default="available")
     publisher_id = fields.Many2one('res.partner', string='Publisher',
                                    # optional:
                                    ondelete='set null',
@@ -108,19 +109,35 @@ class LibraryBook(models.Model):
             else:
                 continue
 
-    def make_available(self):
-        self.change_state('available')
-
     def ref_check(self):
         '''returns recordset of view-ids'''
         ref = self.env.ref("demo.library_book_view_tree").id
         print(ref)
 
+    def make_available(self):
+        self.ensure_one()
+        self.state = 'available'
+
     def make_borrowed(self):
-        self.change_state('borrowed')
+        self.ensure_one()
+        self.state = 'borrowed'
 
     def make_lost(self):
-        self.change_state('lost')
+        self.ensure_one()
+        self.state = 'lost'
+        if not self.env.context.get('avoid_deactivate'):
+            self.active = False
+
+    def book_rent(self):
+        self.ensure_one()
+        if self.state != 'available':
+            raise UserError(_('Book is not available for renting'))
+        rent_as_superuser = self.env['library.book.rent'].sudo()
+        print(rent_as_superuser)
+        rent_as_superuser.create({
+            'book_id': self.id,
+            'borrower_id': self.env.user.partner_id.id,
+        })
 
     def loose_all_book(self):
         all_books = self.env['library.book']
@@ -168,6 +185,23 @@ class LibraryBook(models.Model):
         self.update({
             'date_release': today,
         })
+
+    def average_book_occupation(self):
+        self.flush()
+        sql_query = """
+            SELECT
+                lb.name,
+                avg((EXTRACT(epoch from age(return_date, rent_date)) / 86400))::int
+            FROM
+                library_book_rent AS lbr
+            JOIN
+                library_book as lb ON lb.id = lbr.book_id
+            WHERE lbr.state = 'returned'
+            GROUP BY lb.name;"""
+        self.env.cr.execute(sql_query)
+        result = self.env.cr.fetchall()
+        logger.info("Average book occupation: %s", result)
+
 
 
 class LibraryMember(models.Model):

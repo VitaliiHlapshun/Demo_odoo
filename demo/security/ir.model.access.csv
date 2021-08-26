@@ -3,3 +3,5 @@ access_demo_demo,demo.demo,model_demo_demo,base.group_user,1,1,1,1
 access_library_book,library.book,model_library_book,base.group_user,1,1,1,1
 access_library_book,library.book,model_library_book,base.group_user,1,1,1,1
 access_library_book_category,library.book.category.book,model_library_book_category,base.group_user,1,1,1,1
+acl_book_rent,library.book_rent_default,model_library_book_rent,,1,0,0,0
+acl_book_rent_librarian,library.book_rent_librarian,model_library_book_rent,group_librarian,1,1,1,1

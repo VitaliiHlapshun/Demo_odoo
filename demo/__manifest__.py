@@ -18,10 +18,13 @@
 
     # always loaded
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
-
+        'data/demo_data.xml',
+        'data/data.xml',
         'views/book.xml',
-        'views/book.xml',
+        'views/book_rent.xml',
         'views/book_category.xml',
+        'wizard/library_book_rent_wizard.xml',
     ],
 }

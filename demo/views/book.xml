@@ -3,6 +3,7 @@
 
     <record id='library_book_action' model='ir.actions.act_window'>
         <field name="name">Library Books</field>
+        <field name="context">{'default_pages': 50}</field>
         <field name="res_model">library.book</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -17,13 +18,15 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="book_rent" string="Rent this book" type="object" class="btn-primary"/>
                     <button name="make_available" string="Make Available" type="object"/>
                     <button name="make_borrowed"  string="Make Borrowed" type="object"/>
-                    <button name="grouped_data"  string="Make Lost" type="object"/>
+                    <button name="make_lost"  string="Make Lost" type="object"/>
                     <button name="ref_check" string="Ref Check" type="object"/>
                     <button name="log_all_library_members"  string="Log Members" type="object"/>
                     <button name="create_categories" string="Create Categories" type="object"/>
                     <button name="change_release_date" string="Update Date" type="object"/>
+                    <button name="average_book_occupation" string="Log Average Occ." type="object" />
                     <field name="state" widget="statusbar"/>
                 </header>
                 <group>
@@ -36,6 +39,7 @@
                     </group>
                     <group>
                         <field name="date_release"/>
+                        <field name="active"/>
                         <field name="isbn"/>
                         <field name="pages"/>
                     </group>

@@ -38,7 +38,6 @@ class LibraryBook(models.Model):
         for book in all_books:
             book.cost_price += 10
 
-    @api.model
     def is_allowed_transition(self, old_state, new_state):
         allowed = [('draft', 'available'),
                    ('available', 'borrowed'),
@@ -52,7 +51,6 @@ class LibraryBook(models.Model):
         data = self.get_average_cost()
         logger.info("Groupped Data %s" % data)
 
-    @api.model
     def get_average_cost(self):
         grouped_result = self.read_group(
             [('cost_price', "!=", False)],  # Domain
@@ -61,7 +59,6 @@ class LibraryBook(models.Model):
         )
         return grouped_result
 
-    @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
         args = [] if args is None else args.copy()
         if not (name == '' and operator == 'ilike'):
@@ -94,7 +91,6 @@ class LibraryBook(models.Model):
             print(filtered_books)
             logger.info('Filtered Books: %s', filtered_books)
 
-    @api.model
     def books_with_multiple_authors(self, all_books):
         def predicate(book):
             if len(book.author_ids) >= 1:
@@ -201,7 +197,6 @@ class LibraryBook(models.Model):
         self.env.cr.execute(sql_query)
         result = self.env.cr.fetchall()
         logger.info("Average book occupation: %s", result)
-
 
 
 class LibraryMember(models.Model):

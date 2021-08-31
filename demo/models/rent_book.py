@@ -11,6 +11,7 @@ class LibraryBookRent(models.Model):
                              'State', default='ongoing', required=True)
     rent_date = fields.Date(default=fields.Date.today)
     return_date = fields.Date()
+    expected_return_date = fields.Date()
 
     @api.model
     def create(self, vals):

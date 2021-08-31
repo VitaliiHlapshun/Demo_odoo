@@ -26,5 +26,6 @@
         'views/book_rent.xml',
         'views/book_category.xml',
         'wizard/library_book_rent_wizard.xml',
+        'wizard/library_book_return_wizard.xml',
     ],
 }

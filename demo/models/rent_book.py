@@ -19,12 +19,19 @@ class LibraryBookRent(models.Model):
         book_rec.make_borrowed()
         return super(LibraryBookRent, self).create(vals)
 
+    def name_get(self):
+        result = []
+        for book in self:
+            name = f'{book.book_id.date_release}, {book.book_id.name}'
+            result.append((book.book_id.id, book.book_id.name))
+        return result
+
     def book_return(self):
         self.ensure_one()
         self.book_id.make_available()
         self.write({
             'state': 'returned',
-            'return_date': fields.Date()
+            'return_date': fields.Date.today()
         })
 
     def book_lost(self):

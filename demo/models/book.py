@@ -75,8 +75,10 @@ class LibraryBook(models.Model):
         result = []
         for book in self:
             authors = book.author_ids.mapped('name')
-            name = f'{book.date_release}, {book.name}'
+            print('authors', authors)
+            name = '%s release date (%s)' % (book.date_release, ', '.join(authors))
             result.append((book.id, name))
+            print('result', result)
         return result
 
     # Filter recordset

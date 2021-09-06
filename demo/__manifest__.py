@@ -14,7 +14,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'crm', 'mail', 'project'],
+    'depends': ['base', 'crm', 'mail'],
 
     # always loaded
     'data': [
@@ -25,7 +25,6 @@
         'views/book.xml',
         'views/book_rent.xml',
         'views/book_category.xml',
-        'views/library_book_statistics.xml',
         'wizard/library_book_rent_wizard.xml',
         'wizard/library_book_return_wizard.xml',
     ],

@@ -111,8 +111,8 @@ class LibraryBook(models.Model):
         print(ref)
 
     def make_available(self):
-        self.ensure_one()
-        self.state = 'available'
+        self.write({'state': 'available'})
+        return True
 
     def make_borrowed(self):
         self.ensure_one()

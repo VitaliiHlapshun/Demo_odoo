@@ -16,6 +16,7 @@
     # any module necessary for this one to work correctly
     'depends': ['base', 'crm', 'mail', 'project', 'account', 'contacts'],
 
+
     # always loaded
     'data': [
         'security/groups.xml',

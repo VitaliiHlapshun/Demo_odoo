@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_product_parser_wizard_form" model="ir.ui.view">
+        <field name="name">product.parser.wizard.form</field>
+        <field name="model">product.parser.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Contact Parser">
+
+                <group>
+                    <field name="product_file"/>
+                    <field name="file_parse" invisible="1"/>
+                </group>
+
+                <footer>
+                    <button string="Pre-Parse File"
+                            name="pre_parse_file" type="object"
+                            class="btn-primary o_mail_send"
+                            attrs="{'invisible': [('file_parse', '=', True)]}"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_parser_wizard_action" model="ir.actions.act_window">
+        <field name="name">Contact Parser</field>
+        <field name="res_model">product.parser.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_product_parser_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_product_pricelist_main"
+              name="Contact Parser"
+              parent="contacts.menu_contacts"
+              action="product_parser_wizard_action"
+              sequence="10"/>
+</odoo>

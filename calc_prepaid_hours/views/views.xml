@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_project_kanban_inherit_stss" model="ir.ui.view">
+            <field name="name">project.project.view.kanban.stss.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='o_primary']" position="after">
+                    <div groups="base.group_erp_manager" t-if="record.prepaid_hours.value > 0">
+                        <span class="color_red">
+                            <label for="using_prepaid_hours" style='color: #000000' class="mb-0">Pre-paid hours:</label>
+                            <field name="using_prepaid_hours" widget="float_time"/>
+                        </span>
+                        /
+                        <span class="color_green">
+                            <field name="prepaid_hours" widget="float_time"/>
+                        </span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="edit_project_prepaid_hours" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="prepaid_hours" string="Prepaid Hours" groups="base.group_erp_manager">
+                        <group>
+                            <group>
+                                <field name="prepaid_hours"/>
+                            </group>
+                            <group>
+                                <field name="using_prepaid_hours"/>
+                            </group>
+                            <group colspan="4">
+                                <field name="project_prepaid_hour_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="date"/>
+                                        <field name="hours" widget="float_time"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

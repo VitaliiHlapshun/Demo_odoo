@@ -26,7 +26,6 @@
         'views/book.xml',
         'views/book_rent.xml',
         'views/book_category.xml',
-        'views/library_book_statistics.xml',
         'views/my_partners.xml',
         'wizard/library_book_rent_wizard.xml',
         'wizard/library_book_return_wizard.xml',

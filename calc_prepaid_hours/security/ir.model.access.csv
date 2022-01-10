@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_prepaid_hour,calc_prepaid_hours.project_prepaid_hour,model_project_prepaid_hour,base.group_user,1,1,1,1

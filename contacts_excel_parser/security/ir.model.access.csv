@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product.parser.wizard_public,product.parser.wizard,model_product_parser_wizard,,1,1,1,1
